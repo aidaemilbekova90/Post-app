@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+
+
+import "./App.css";
+
+import PostItem from "./Components/PostItem/PostItem";
+import PostList from "./Components/PostList/PostList";
+
+import PostForm from "./Components/postForm/PostForm";
 
 function App() {
+  const [posts, setPosts] = useState([
+    {
+      id: 1,
+      title: "Javascript",
+      body: "Javascript-язык программирования",
+    },
+    {
+      id: 2,
+      title: "PHP",
+      body: "PHP-язык программирования",
+    },
+    {
+      id: 3,
+      title: "SQL",
+      body: "SQL-язык программирования",
+    },
+  ]);
+ 
+  const [post, setPost] = useState({id:Date.now(),title:"",body:""});
+
+ 
+ const createPost=(newPost)=>{
+setPosts([...posts,newPost])
+ }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <PostForm create={createPost}/>
+      <PostList posts={posts} title="Список постов про JS" />
+    
     </div>
   );
 }
